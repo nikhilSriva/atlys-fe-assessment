@@ -1,10 +1,11 @@
 import './App.css'
-import Login from "./components/Login";
+import React from "react";
+import RouterProviderContainer from "./routes/routerProvider";
 
 function App() {
     return (
         <div className={'app-container'}>
-            <Login />
+            <RouterProviderContainer/>
         </div>
     )
 }

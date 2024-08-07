@@ -2,9 +2,24 @@ import styles from './Login.module.scss'
 import Input from "../Input/index";
 import {useState} from "react";
 import Button from "../Button";
+import {useAuth} from "../../context/AuthContext";
+import {useNavigate} from "react-router-dom";
 
 const Login = ({value}) => {
     const [form, setForm] = useState({});
+    const {login} = useAuth();
+    const navigate = useNavigate();
+
+    const loginHandler = () => {
+        login();
+        if (document.startViewTransition) {
+            document.startViewTransition(() => {
+                navigate('/home');
+            });
+        } else {
+            navigate('/home'); // Fallback if the API is not supported
+        }
+    }
 
     return <div className={styles.loginContainer}>
         <div className={styles.header}>
@@ -22,7 +37,7 @@ const Login = ({value}) => {
             </div>
             <Input type={'password'} placeholder={'Enter your password'}/>
         </div>
-        <Button className={styles.button}>
+        <Button onClick={loginHandler} className={styles.button}>
             Login
         </Button>
         <p className={styles.notRegistered}>
