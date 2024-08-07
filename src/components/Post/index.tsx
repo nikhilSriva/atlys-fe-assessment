@@ -13,6 +13,7 @@ interface CommentType {
     img: string;
     mood: string;
     content: string;
+    id: number;
 }
 
 interface PostProps {
