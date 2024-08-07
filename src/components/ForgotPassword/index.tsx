@@ -1,21 +1,15 @@
 import styles from './ForgotPassword.module.scss'
 import Input from "../Input/index";
-import {useState} from "react";
+import React from "react";
 import Button from "../Button";
-import {useAuth} from "../../context/AuthContext";
-import {useNavigate} from "react-router-dom";
-import {executeFunctionWithTransition} from "../../utils/helpers";
 
-const ForgotPassword = () => {
-    const [form, setForm] = useState({});
-    const {login} = useAuth();
-    const navigate = useNavigate();
+interface Props {
+    onSwitch: (type: string) => void;
+}
 
+const ForgotPassword: React.FC<Props> = ({onSwitch}) => {
     const loginHandler = () => {
-        login();
-        executeFunctionWithTransition(() => {
-            navigate('/home');
-        })
+        onSwitch('login')
     }
 
     return <div className={styles.loginContainer}>

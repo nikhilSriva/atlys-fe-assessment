@@ -3,7 +3,6 @@ import Input from "../Input/index";
 import React, {useState} from "react";
 import Button from "../Button";
 import {useAuth} from "../../context/AuthContext";
-import {useNavigate} from "react-router-dom";
 import {executeFunctionWithTransition} from "../../utils/helpers";
 
 interface Props {
@@ -13,7 +12,6 @@ interface Props {
 const Register: React.FC<Props> = ({onSwitch}) => {
     const [form, setForm] = useState({});
     const {login} = useAuth();
-    const navigate = useNavigate();
 
     const loginHandler = (e) => {
         e.stopPropagation();
