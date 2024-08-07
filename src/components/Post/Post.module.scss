@@ -6,6 +6,8 @@
   padding: 24px 20px;
   border-radius: 8px;
   margin-bottom: 16px;
+  height: auto;
+  transition: all 0.3s linear;
 
   .profile {
     display: flex;
@@ -106,25 +108,39 @@
 
   .comment {
     display: flex;
-    align-items: center;
-    cursor: pointer;
-    width: fit-content;
+    align-items: flex-start;
 
-    span {
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 16.94px;
-      text-align: left;
-      color: rgba(127, 128, 132, 1);
-      padding-left: 8px;
-      transition: color 0.2s linear;
+    width: fit-content;
+    flex-direction: column;
+
+    .commentCount {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      span {
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 16.94px;
+        text-align: left;
+        color: rgba(127, 128, 132, 1);
+        padding-left: 8px;
+        transition: color 0.2s linear;
+      }
+
+      &:hover {
+        span {
+          transition: color 0.2s linear;
+          color: rgb(220, 220, 224);
+        }
+      }
     }
 
-    &:hover {
-      span {
-        transition: color 0.2s linear;
-        color: rgb(220, 220, 224);
-      }
+    .commentList {
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      padding-left: 30px;
     }
   }
 

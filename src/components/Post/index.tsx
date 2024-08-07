@@ -1,12 +1,13 @@
 import styles from './Post.module.scss'
 import CommentIcon from '../../assets/svg/comment.svg'
 import React, {useRef, useState} from "react";
-import {convertTimeToHumanReadable} from "../../utils/helpers";
+import {convertTimeToHumanReadable, executeFunctionWithTransition} from "../../utils/helpers";
 import EllipsisIcon from '../../assets/svg/ellipsis.svg'
 import {useClickOutside} from "../../hooks/useClickOutside";
 import MoodBg from '../../assets/svg/moodBg.svg'
+import Comment from "../Comment/index";
 
-interface Comment {
+interface CommentType {
     createdAt: number;
     author: string;
     img: string;
@@ -18,14 +19,16 @@ interface PostProps {
     author: string;
     mood: string;
     createdAt: number;
-    comments: Comment[];
+    comments: CommentType[];
     content: string;
     authorImage: string;
     isEdited: boolean;
 }
 
 const Post: React.FC<PostProps> = ({comments, isEdited, authorImage, content, createdAt, mood, author}) => {
-    const [showMenu, setShowMenu] = useState(false)
+    const [showMenu, setShowMenu] = useState(false);
+    const [showComments, setShowComments] = useState(false);
+
     const menuRef = useRef(null);
     const toggleMenu = () => setShowMenu(prevState => !prevState);
 
@@ -64,8 +67,26 @@ const Post: React.FC<PostProps> = ({comments, isEdited, authorImage, content, cr
             <p>{content}</p>
         </div>
         <div className={styles.comment}>
-            <img alt={'comment-icon'} src={CommentIcon}/>
-            <span>{comments.length} comments</span>
+            <div onClick={() => {
+                executeFunctionWithTransition(() => {
+                    setShowComments(prevState => !prevState)
+                })
+            }} className={styles.commentCount}>
+                <img alt={'comment-icon'} src={CommentIcon}/>
+                <span>{comments.length} comments</span>
+            </div>
+            {
+                showComments && <div className={styles.commentList}>
+                    {
+                        comments.map(item => <Comment
+                            key={item.id}
+                            createdAt={item.createdAt}
+                            content={item.content}
+                            author={item.author}
+                            userImage={item.img}/>)
+                    }
+                </div>
+            }
         </div>
     </div>
 }

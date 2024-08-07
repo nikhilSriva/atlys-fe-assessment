@@ -11,12 +11,22 @@ const CreatePost = () => {
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
     const {isAuthenticated} = useAuth();
 
-    const closeModal = useCallback(() => {
+    const closeModal = useCallback((e) => {
+        e.stopPropagation();
         executeFunctionWithTransition(() => {
             setIsLoginModalOpen(false)
         })
     }, []);
 
+    const onPost = () => {
+        if (isAuthenticated) {
+            //create a post after successful validation
+        } else {
+            executeFunctionWithTransition(() => {
+                setIsLoginModalOpen(true)
+            })
+        }
+    }
     return <div className={styles.createPostContainer}>
         <h3>Create post</h3>
         <div className={styles.textArea}>
@@ -25,15 +35,9 @@ const CreatePost = () => {
                       value={post}
                       placeholder={'How are you feeling today?'}/>
         </div>
-        <Button onClick={() => {
-            if (isAuthenticated) {
-                //create a post after successful validation
-            } else {
-                executeFunctionWithTransition(() => {
-                    setIsLoginModalOpen(true)
-                })
-            }
-        }} className={styles.postBtn}>Post</Button>
+        <Button onClick={onPost} className={styles.postBtn}>
+            Post
+        </Button>
         <Modal onClose={closeModal} isOpen={isLoginModalOpen}>
             <AuthContainer/>
         </Modal>
