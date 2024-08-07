@@ -1,6 +1,6 @@
 import styles from './Login.module.scss'
 import Input from "../Input/index";
-import React, {useState} from "react";
+import React, {ChangeEvent, useState} from "react";
 import Button from "../Button";
 import {useAuth} from "../../context/AuthContext";
 import {useNavigate} from "react-router-dom";
@@ -8,18 +8,22 @@ import {executeFunctionWithTransition} from "../../utils/helpers";
 
 interface Props {
     onSwitch: (type: string) => void;
+    onLogin: (e: ChangeEvent) => void;
 }
 
-const Login: React.FC<Props> = ({onSwitch}) => {
+const Login: React.FC<Props> = ({onSwitch, onLogin}) => {
     const [form, setForm] = useState({});
     const {login} = useAuth();
     const navigate = useNavigate();
 
-    const loginHandler = () => {
+    const loginHandler = (e) => {
         login();
-        executeFunctionWithTransition(() => {
-            navigate('/home');
-        })
+        if (onLogin) {
+            onLogin(e)
+        } else
+            executeFunctionWithTransition(() => {
+                navigate('/home');
+            })
     }
 
     return <div className={styles.loginContainer}>

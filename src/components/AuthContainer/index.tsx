@@ -4,7 +4,11 @@ import Register from "../Register";
 import ForgotPassword from "../ForgotPassword";
 import {executeFunctionWithTransition} from "../../utils/helpers";
 
-const AuthContainer: React.FC = () => {
+interface AuthContainerProps {
+    onLogin: () => void;
+}
+
+const AuthContainer: React.FC<AuthContainerProps> = ({onLogin}) => {
     const [view, setView] = useState<'login' | 'register' | 'forgot-password'>('login');
 
     const handleSwitch = (type: 'login' | 'register' | 'forgot-password') => {
@@ -15,7 +19,7 @@ const AuthContainer: React.FC = () => {
 
     return (
         <div>
-            {view === 'login' && <Login onSwitch={handleSwitch}/>}
+            {view === 'login' && <Login onLogin={onLogin} onSwitch={handleSwitch}/>}
             {view === 'register' && <Register onSwitch={handleSwitch}/>}
             {view === 'forgot-password' && <ForgotPassword onSwitch={handleSwitch}/>}
         </div>

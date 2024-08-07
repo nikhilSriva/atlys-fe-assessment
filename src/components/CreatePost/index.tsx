@@ -8,6 +8,7 @@ import AuthContainer from "../AuthContainer";
 
 const CreatePost = () => {
     const [post, setPost] = useState('');
+    const [error, setError] = useState('');
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
     const {isAuthenticated} = useAuth();
 
@@ -20,6 +21,9 @@ const CreatePost = () => {
 
     const onPost = () => {
         if (isAuthenticated) {
+            if (!post)
+                return setError('Please enter something nice to post about')
+            alert('Your post has been created!')
             //create a post after successful validation
         } else {
             executeFunctionWithTransition(() => {
@@ -31,15 +35,21 @@ const CreatePost = () => {
         <h3>Create post</h3>
         <div className={styles.textArea}>
             <span>💬</span>
-            <textarea onChange={(e) => setPost(e.target.value)}
+            <textarea onChange={(e) => {
+                setError('')
+                setPost(e.target.value)
+            }}
                       value={post}
                       placeholder={'How are you feeling today?'}/>
         </div>
+        {
+            error && <label className={styles.error}>{error}</label>
+        }
         <Button onClick={onPost} className={styles.postBtn}>
             Post
         </Button>
         <Modal onClose={closeModal} isOpen={isLoginModalOpen}>
-            <AuthContainer/>
+            <AuthContainer onLogin={closeModal}/>
         </Modal>
     </div>
 }
