@@ -1,5 +1,12 @@
 ## Atlys Frontend Assessment
 
+### Functionalities:
+
+- Comment section
+- Post options menu
+- Inbuilt View Transitions API
+- Added a basic forgot password modal
+
 ### Technology Stack
 
 - **Language** : Typescript
