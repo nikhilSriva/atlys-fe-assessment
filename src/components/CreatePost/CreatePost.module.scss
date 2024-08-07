@@ -1,0 +1,48 @@
+.createPostContainer {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid rgba(53, 55, 59, 1);
+  background: rgba(39, 41, 45, 1);
+  padding: 24px 20px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+
+  .textArea {
+    display: flex;
+    background: rgba(25, 25, 32, 1);
+    padding: 15px 16px;
+    border-radius: 8px;
+    margin: 16px 0;
+
+    span {
+      background: rgba(39, 41, 45, 1);
+      padding: 11px 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 100%;
+    }
+
+    textarea {
+      outline: none;
+      padding-left: 16px;
+      background-color: transparent;
+      border: none;
+      width: 100%;
+
+      &::placeholder {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 16px;
+        text-align: left;
+        color: rgba(127, 128, 132, 1);
+        padding-top: 3%;
+      }
+    }
+  }
+
+  .postBtn {
+    margin-left: auto;
+    padding: 12px 40px;
+  }
+}

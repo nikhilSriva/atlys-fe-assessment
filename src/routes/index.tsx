@@ -5,7 +5,7 @@ import ProtectedRoute from "../components/ProtectedRoute";
 
 const ROUTER = createBrowserRouter([
         {
-            path: "/login",
+            path: "/",
             element: (
                 <LoginPage/>
             ),
