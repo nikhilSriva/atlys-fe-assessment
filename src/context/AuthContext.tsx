@@ -1,5 +1,4 @@
-import React, {createContext, ReactNode, useContext, useEffect, useState} from 'react';
-import {storage} from "../services/storage";
+import React, {createContext, ReactNode, useContext, useState} from 'react';
 
 interface AuthContextType {
     isAuthenticated: boolean;
@@ -8,21 +7,16 @@ interface AuthContextType {
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
-const dummyToken = '12313f13id189dsua89d'
+
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({children}) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    useEffect(() => {
-        setIsAuthenticated(storage.checkAuthentication());
-    }, []);
 
     const login = () => {
         setIsAuthenticated(true);
-        storage.set.authToken(dummyToken)
 
     }
     const logout = () => {
         setIsAuthenticated(false);
-        storage.destroy.all();
     }
 
     return (

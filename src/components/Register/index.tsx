@@ -1,4 +1,4 @@
-import styles from './Login.module.scss'
+import styles from './Register.module.scss'
 import Input from "../Input/index";
 import React, {useState} from "react";
 import Button from "../Button";
@@ -10,51 +10,50 @@ interface Props {
     onSwitch: (type: string) => void;
 }
 
-const Login: React.FC<Props> = ({onSwitch}) => {
+const Register: React.FC<Props> = ({onSwitch}) => {
     const [form, setForm] = useState({});
     const {login} = useAuth();
     const navigate = useNavigate();
 
-    const loginHandler = () => {
-        login();
+    const loginHandler = (e) => {
+        e.stopPropagation();
         executeFunctionWithTransition(() => {
-            navigate('/home');
+            onSwitch('login')
         })
     }
 
     return <div className={styles.loginContainer}>
         <div className={styles.header}>
-            <h3>Welcome back</h3>
-            <h2>Log into your account</h2>
+            <h3>Sign UP</h3>
+            <h2>Create an account to continue</h2>
         </div>
         <div className={styles.element}>
-            <label>Email or Username</label>
-            <Input placeholder={'Enter your email or username'}/>
+            <label>Email</label>
+            <Input placeholder={'Enter your email'}/>
+        </div>
+        <div className={styles.element}>
+            <label>Username</label>
+            <Input placeholder={'Choose a preferred username'}/>
         </div>
         <div className={styles.element}>
             <div className={styles.row}>
                 <label>Password</label>
-                <label
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        onSwitch('forgot-password')
-                    }}>
-                    Forgot password?
-                </label>
             </div>
-            <Input type={'password'} placeholder={'Enter your password'}/>
+            <Input type={'password'} placeholder={'Choose a strong password'}/>
         </div>
         <Button onClick={loginHandler} className={styles.button}>
-            Login
+            Continue
         </Button>
-        <p onClick={(e) => {
-            e.stopPropagation();
-            onSwitch('register')
-        }} className={styles.notRegistered}>
-            <span>Not registered yet?</span>
-            <span>&nbsp;Register</span>
+        <p
+            onClick={(e) => {
+                e.stopPropagation();
+                onSwitch('login')
+            }}
+            className={styles.notRegistered}>
+            <span>Already have an account?</span>
+            <span>&nbsp;Login</span>
             <span>&nbsp;→</span>
         </p>
     </div>
 }
-export default Login
+export default Register

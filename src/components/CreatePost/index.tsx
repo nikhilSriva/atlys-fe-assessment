@@ -3,8 +3,8 @@ import Button from "../Button";
 import {useCallback, useState} from "react";
 import {useAuth} from "../../context/AuthContext";
 import Modal from "../Modal";
-import Login from "../Login";
 import {executeFunctionWithTransition} from "../../utils/helpers";
+import AuthContainer from "../AuthContainer";
 
 const CreatePost = () => {
     const [post, setPost] = useState('');
@@ -35,7 +35,7 @@ const CreatePost = () => {
             }
         }} className={styles.postBtn}>Post</Button>
         <Modal onClose={closeModal} isOpen={isLoginModalOpen}>
-            <Login/>
+            <AuthContainer/>
         </Modal>
     </div>
 }

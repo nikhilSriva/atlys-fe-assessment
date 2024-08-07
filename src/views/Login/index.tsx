@@ -1,6 +1,6 @@
-import Login from "../../components/Login";
+import AuthContainer from "../../components/AuthContainer";
 
 const LoginPage = () => {
-    return <Login/>
+    return <AuthContainer/>
 }
 export default LoginPage
