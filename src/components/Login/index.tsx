@@ -4,21 +4,18 @@ import {useState} from "react";
 import Button from "../Button";
 import {useAuth} from "../../context/AuthContext";
 import {useNavigate} from "react-router-dom";
+import {executeFunctionWithTransition} from "../../utils/helpers";
 
-const Login = ({value}) => {
+const Login = () => {
     const [form, setForm] = useState({});
     const {login} = useAuth();
     const navigate = useNavigate();
 
     const loginHandler = () => {
         login();
-        if (document.startViewTransition) {
-            document.startViewTransition(() => {
-                navigate('/home');
-            });
-        } else {
-            navigate('/home'); // Fallback if the API is not supported
-        }
+        executeFunctionWithTransition(() => {
+            navigate('/home');
+        })
     }
 
     return <div className={styles.loginContainer}>

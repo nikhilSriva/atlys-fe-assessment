@@ -7,5 +7,14 @@ const convertTimeToHumanReadable = (timestamp) => {
         includeSeconds: true,
         addSuffix: true
     })
+};
+
+const executeFunctionWithTransition = (fn) => {
+    if (document.startViewTransition) {
+        document.startViewTransition(() => {
+            return fn()
+        })
+    } else
+        return fn()
 }
-export {convertTimeToHumanReadable}
+export {convertTimeToHumanReadable, executeFunctionWithTransition}

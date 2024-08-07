@@ -1,14 +1,42 @@
 import styles from './CreatePost.module.scss'
 import Button from "../Button";
+import {useCallback, useState} from "react";
+import {useAuth} from "../../context/AuthContext";
+import Modal from "../Modal";
+import Login from "../Login";
+import {executeFunctionWithTransition} from "../../utils/helpers";
 
 const CreatePost = () => {
+    const [post, setPost] = useState('');
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+    const {isAuthenticated} = useAuth();
+
+    const closeModal = useCallback(() => {
+        executeFunctionWithTransition(() => {
+            setIsLoginModalOpen(false)
+        })
+    }, []);
+
     return <div className={styles.createPostContainer}>
         <h3>Create post</h3>
         <div className={styles.textArea}>
             <span>💬</span>
-            <textarea placeholder={'How are you feeling today?'}/>
+            <textarea onChange={(e) => setPost(e.target.value)}
+                      value={post}
+                      placeholder={'How are you feeling today?'}/>
         </div>
-        <Button className={styles.postBtn}>Post</Button>
+        <Button onClick={() => {
+            if (isAuthenticated) {
+                //create a post after successful validation
+            } else {
+                executeFunctionWithTransition(() => {
+                    setIsLoginModalOpen(true)
+                })
+            }
+        }} className={styles.postBtn}>Post</Button>
+        <Modal onClose={closeModal} isOpen={isLoginModalOpen}>
+            <Login/>
+        </Modal>
     </div>
 }
 
